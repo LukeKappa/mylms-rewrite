@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "cd mylms-dashboard && npm install && npm run build",
+  "outputDirectory": "mylms-dashboard/.next",
+  "installCommand": "cd mylms-dashboard && npm install"
+}
