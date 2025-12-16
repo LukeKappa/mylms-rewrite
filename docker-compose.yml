@@ -1,0 +1,43 @@
+# MyLMS Docker Compose Setup
+
+services:
+  # Rust Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - RUST_LOG=mylms_backend=debug,tower_http=debug
+      - MOODLE_URL=https://mylms.vossie.net
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./mylms-dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:3001
+      - NEXT_PUBLIC_MOODLE_URL=https://mylms.vossie.net
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:

@@ -1,0 +1,15 @@
+C:\Users\luke\mylms-rewrite\backend\target\debug\deps\markup5ever-3421cec2dc36d5a0.d: C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\lib.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\data\mod.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\mod.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\tree_builder.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\serialize.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\buffer_queue.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\smallcharset.rs C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/generated.rs C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/named_entities.rs
+
+C:\Users\luke\mylms-rewrite\backend\target\debug\deps\libmarkup5ever-3421cec2dc36d5a0.rmeta: C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\lib.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\data\mod.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\mod.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\tree_builder.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\serialize.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\buffer_queue.rs C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\smallcharset.rs C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/generated.rs C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/named_entities.rs
+
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\lib.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\data\mod.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\mod.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\interface\tree_builder.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\serialize.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\buffer_queue.rs:
+C:\Users\luke\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\markup5ever-0.14.1\util\smallcharset.rs:
+C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/generated.rs:
+C:\Users\luke\mylms-rewrite\backend\target\debug\build\markup5ever-6503b73cabfc18ac\out/named_entities.rs:
+
+# env-dep:OUT_DIR=C:\\Users\\luke\\mylms-rewrite\\backend\\target\\debug\\build\\markup5ever-6503b73cabfc18ac\\out
