@@ -10,6 +10,7 @@ mod config;
 mod error;
 mod moodle;
 mod content;
+mod libgen;
 mod cache;
 mod routes;
 

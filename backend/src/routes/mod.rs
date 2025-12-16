@@ -3,6 +3,7 @@
 mod auth;
 mod courses;
 mod content;
+mod books;
 
 use axum::Router;
 use crate::config::Config;
@@ -13,4 +14,5 @@ pub fn api_routes() -> Router<Config> {
         .nest("/auth", auth::routes())
         .nest("/courses", courses::routes())
         .nest("/content", content::routes())
+        .nest("/books", books::books_routes())
 }
