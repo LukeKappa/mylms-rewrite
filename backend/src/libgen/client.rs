@@ -3,8 +3,8 @@
 //! Uses libgen-rs crate to search and download books from Library Genesis
 
 use crate::error::AppError;
-use super::types::{Book, SearchResult};
-use tracing::{debug, info, error};
+use super::types::SearchResult;
+use tracing::{debug, info};
 
 /// LibGen client for searching and downloading books
 pub struct LibGenClient {

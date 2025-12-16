@@ -1,7 +1,7 @@
 //! Book-related API routes for searching and downloading books via LibGen
 
 use axum::{
-    extract::{Query, State},
+    extract::Query,
     http::StatusCode,
     response::Json,
     routing::{get, post},
@@ -10,8 +10,7 @@ use axum::{
 use serde::{Deserialize, Serialize};
 
 use crate::config::Config;
-use crate::error::AppError;
-use crate::libgen::{LibGenClient, SearchResult, Book, PrescribedBook};
+use crate::libgen::{LibGenClient, SearchResult, PrescribedBook};
 
 /// Query params for book search
 #[derive(Debug, Deserialize)]
@@ -123,8 +122,8 @@ async fn detect_books(
 }
 
 /// Extract prescribed book references from HTML content
-fn detect_prescribed_books(html: &str) -> Vec<PrescribedBook> {
-    let mut books = Vec::new();
+fn detect_prescribed_books(_html: &str) -> Vec<PrescribedBook> {
+    let books = Vec::new();
     
     // Look for common patterns in prescribed reading sections
     // Pattern 1: "Author, Title, Edition, Year"
@@ -133,8 +132,8 @@ fn detect_prescribed_books(html: &str) -> Vec<PrescribedBook> {
     
     // Simple regex-based detection for now
     // Look for patterns like "Chapter 1" or "pp. 10-20"
-    let chapter_pattern = regex::Regex::new(r"(?i)chapter\s+(\d+|[ivxlc]+)").ok();
-    let page_pattern = regex::Regex::new(r"(?i)pp?\.\s*(\d+)").ok();
+    let _chapter_pattern = regex::Regex::new(r"(?i)chapter\s+(\d+|[ivxlc]+)").ok();
+    let _page_pattern = regex::Regex::new(r"(?i)pp?\.\s*(\d+)").ok();
     
     // TODO: Implement more sophisticated book detection
     // This will need to parse the HTML and find prescribed reading sections

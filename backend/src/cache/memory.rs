@@ -95,9 +95,8 @@ impl MemoryCache {
 }
 
 /// Global cache instance
-lazy_static::lazy_static! {
-    pub static ref CACHE: MemoryCache = MemoryCache::new();
-}
+use std::sync::LazyLock;
+pub static CACHE: LazyLock<MemoryCache> = LazyLock::new(|| MemoryCache::new());
 
 #[cfg(test)]
 mod tests {

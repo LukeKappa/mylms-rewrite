@@ -2,14 +2,13 @@
 
 use axum::{
     extract::State,
-    http::StatusCode,
     routing::post,
     Json, Router,
 };
 use serde::{Deserialize, Serialize};
 
 use crate::config::Config;
-use crate::error::{AppError, Result};
+use crate::error::Result;
 use crate::moodle::MoodleClient;
 
 #[derive(Debug, Deserialize)]

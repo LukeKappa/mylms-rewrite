@@ -125,7 +125,7 @@ impl MoodleClient {
     }
 
     /// Get page module content
-    pub async fn get_page_content(&self, token: &str, pageid: i64) -> Result<Value> {
+    pub async fn get_page_content(&self, token: &str, _pageid: i64) -> Result<Value> {
         self.call(token, "mod_page_get_pages_by_courses", &[]).await
     }
 
