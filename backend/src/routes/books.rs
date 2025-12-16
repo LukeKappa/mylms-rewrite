@@ -52,7 +52,7 @@ pub struct DetectResponse {
 pub fn books_routes() -> Router<Config> {
     Router::new()
         .route("/search", get(search_books))
-        .route("/download/:md5", get(get_download_url))
+        .route("/download/{md5}", get(get_download_url))
         .route("/detect", post(detect_books))
 }
 
