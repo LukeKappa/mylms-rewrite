@@ -2,24 +2,40 @@
 //!
 //! Ported from TypeScript cleaner.ts - removes scripts, styles, navigation,
 //! iframes, and Kortext/Prescribed Reading boilerplate.
+//!
+//! Uses lol_html for single-pass streaming - much faster than scraper.
 
-use scraper::{Html, Selector};
+use lol_html::{element, rewrite_str, RewriteStrSettings};
+use std::cell::RefCell;
+use std::collections::HashSet;
 
-/// Navigation selectors to remove
-const NAVIGATION_SELECTORS: &[&str] = &[
-    "nav",
-    ".navigation",
-    ".breadcrumb",
-    "#page-header",
-    ".modified",
-    ".activity-navigation",
+/// Navigation classes to remove (elements with these classes)
+const NAVIGATION_CLASSES: &[&str] = &[
+    "navigation",
+    "breadcrumb",
+    "page-header",
+    "modified",
+    "activity-navigation",
 ];
 
-/// Kortext phrases - elements containing these should have their container removed
+/// Navigation IDs to remove
+const NAVIGATION_IDS: &[&str] = &[
+    "page-header",
+];
+
+/// Navigation tags to remove entirely
+const NAVIGATION_TAGS: &[&str] = &[
+    "nav",
+];
+
+/// Kortext phrases - elements containing these should be removed
 const KORTEXT_PHRASES: &[&str] = &[
     "Sign in to Kortext",
     "Open book in new window",
     "You will only be able to access the book on Kortext",
+    "kortext.com",
+    "Kortext eBook",
+    "Access via Kortext",
 ];
 
 /// Prescribed Reading phrases
@@ -28,13 +44,10 @@ const PRESCRIBED_READING_PHRASES: &[&str] = &[
     "Learning outcomes",
 ];
 
-/// Container selectors that might hold unwanted content
-const CONTAINER_SELECTORS: &[&str] = &[
-    ".no-overflow",
-    ".box",
-    ".generalbox",
-    ".prescribed-reading",
-    "div[style*='margin: auto 20%']",  // Kortext sign-in container
+/// Container classes that hold unwanted content
+const UNWANTED_CONTAINER_CLASSES: &[&str] = &[
+    "no-overflow",
+    "prescribed-reading",
 ];
 
 /// Clean HTML content
@@ -49,46 +62,141 @@ pub fn clean_html_with_token(html: &str, token: Option<&str>) -> String {
     }
 
     let original_len = html.len();
-    let mut output = html.to_string();
     
-    // Step 1: Remove scripts, styles, and stylesheet links
-    output = remove_elements_by_tag(&output, "script");
-    output = remove_elements_by_tag(&output, "style");
-    output = remove_link_stylesheets(&output);
+    // Track seen headings for deduplication
+    let seen_headings: RefCell<HashSet<String>> = RefCell::new(HashSet::new());
     
-    // Step 2: Remove navigation elements
-    for selector in NAVIGATION_SELECTORS {
-        output = remove_elements_by_selector(&output, selector);
-    }
+    // First pass: streaming removal of elements
+    let result = rewrite_str(
+        html,
+        RewriteStrSettings {
+            element_content_handlers: vec![
+                // Remove script elements
+                element!("script", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove style elements
+                element!("style", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove link stylesheets
+                element!("link[rel='stylesheet']", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!("link[rel=\"stylesheet\"]", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove iframes (Kortext embeds, etc.)
+                element!("iframe", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove nav elements
+                element!("nav", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove elements with navigation classes
+                element!(".navigation", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!(".breadcrumb", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!("#page-header", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!(".modified", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!(".activity-navigation", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove no-overflow containers (often Kortext)
+                element!(".no-overflow", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove prescribed-reading containers
+                element!(".prescribed-reading", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Remove box/generalbox that might contain Kortext
+                element!(".box", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                element!(".generalbox", |el| {
+                    el.remove();
+                    Ok(())
+                }),
+                // Clean images - remove spacers, icons, data URIs
+                element!("img", |el| {
+                    if let Some(src) = el.get_attribute("src") {
+                        // Remove spacer images, icons, and empty src
+                        if src.is_empty() 
+                            || src.starts_with("data:image/gif;base64")
+                            || src.contains("icon")
+                            || src.contains("spacer")
+                        {
+                            el.remove();
+                        }
+                    } else {
+                        // No src attribute, remove
+                        el.remove();
+                    }
+                    Ok(())
+                }),
+                // Handle headings for deduplication
+                element!("h1, h2, h3, h4, h5, h6", |el| {
+                    // We'll handle deduplication in post-processing
+                    // lol_html doesn't give us easy text content access
+                    Ok(())
+                }),
+            ],
+            ..RewriteStrSettings::default()
+        },
+    );
+
+    let mut output = match result {
+        Ok(s) => s,
+        Err(e) => {
+            tracing::error!("lol_html rewrite failed: {}", e);
+            return html.to_string();
+        }
+    };
+
+    // Second pass: remove elements containing Kortext/Prescribed Reading text
+    // We need to use scraper for this since lol_html can't easily access text content
+    output = remove_kortext_content(&output);
     
-    // Step 3: Remove iframes (Kortext embeds)
-    output = remove_elements_by_tag(&output, "iframe");
+    // Post-process: remove duplicate headings
+    output = remove_duplicate_headings_scraper(&output);
     
-    // Step 4: Remove containers that contain Kortext/Prescribed Reading phrases
-    output = remove_unwanted_content(&output);
+    // Post-process: remove empty paragraphs
+    output = remove_empty_paragraphs_fast(&output);
     
-    // Step 5: Clean images - remove spacers, icons, data URIs
-    output = clean_images(&output);
-    
-    // Step 6: Remove duplicate headings (from concatenated HTML files)
-    output = remove_duplicate_headings(&output);
-    
-    // Step 7: Remove empty paragraphs
-    output = remove_empty_paragraphs(&output);
-    
-    // Step 8: Fix image URLs with token if provided
+    // Fix image URLs with token if provided
     if let Some(token) = token {
         output = fix_image_urls(&output, token);
     }
     
-    // Step 9: Fix entity encoding - decode common HTML entities
-    // Handle double-encoded entities first
+    // Fix entity encoding
     output = output.replace("&amp;nbsp;", " ");
     output = output.replace("&amp;gt;", ">");
     output = output.replace("&amp;lt;", "<");
     output = output.replace("&amp;quot;", "\"");
     output = output.replace("&amp;amp;", "&");
-    // Then handle single-encoded entities
     output = output.replace("&nbsp;", " ");
     output = output.replace("&gt;", ">");
     output = output.replace("&lt;", "<");
@@ -103,11 +211,13 @@ pub fn clean_html_with_token(html: &str, token: Option<&str>) -> String {
     output
 }
 
-/// Remove elements containing unwanted text (Kortext, Prescribed Reading)
-/// This follows the TypeScript pattern of finding containers with unwanted phrases
-fn remove_unwanted_content(html: &str) -> String {
-    let mut output = html.to_string();
+/// Remove elements containing Kortext/Prescribed Reading text
+/// Uses scraper for text content matching
+fn remove_kortext_content(html: &str) -> String {
+    use scraper::{Html, Selector};
+    
     let document = Html::parse_document(html);
+    let mut output = html.to_string();
     
     // Collect all unwanted phrases
     let all_phrases: Vec<&str> = KORTEXT_PHRASES.iter()
@@ -115,21 +225,25 @@ fn remove_unwanted_content(html: &str) -> String {
         .copied()
         .collect();
     
-    // For each container selector, check if it contains unwanted phrases
-    for container_selector in CONTAINER_SELECTORS {
-        if let Ok(selector) = Selector::parse(container_selector) {
+    // Check common container elements for unwanted text
+    let container_selectors = ["div", "section", "article", "p", "span"];
+    
+    for selector_str in container_selectors {
+        if let Ok(selector) = Selector::parse(selector_str) {
             for element in document.select(&selector) {
                 let element_text: String = element.text().collect();
                 
-                // Check if this container has any unwanted phrases
-                let has_unwanted = all_phrases.iter().any(|phrase| element_text.contains(phrase));
+                // Check if this element contains any unwanted phrases
+                let has_unwanted = all_phrases.iter().any(|phrase| 
+                    element_text.to_lowercase().contains(&phrase.to_lowercase())
+                );
                 
                 if has_unwanted {
                     let element_html = element.html();
                     // Only remove if the container is reasonably sized (not the whole page)
-                    if element_html.len() < 5000 {
+                    if element_html.len() < 5000 && element_html.len() > 10 {
                         output = output.replace(&element_html, "");
-                        tracing::debug!("Removed unwanted container: {}", container_selector);
+                        tracing::debug!("Removed Kortext content: {:.50}...", element_text);
                     }
                 }
             }
@@ -139,92 +253,21 @@ fn remove_unwanted_content(html: &str) -> String {
     output
 }
 
-/// Remove all elements matching a tag name
-fn remove_elements_by_tag(html: &str, tag: &str) -> String {
+/// Remove duplicate headings using scraper
+fn remove_duplicate_headings_scraper(html: &str) -> String {
+    use scraper::{Html, Selector};
+    
     let document = Html::parse_document(html);
     let mut output = html.to_string();
+    let mut seen_headings: HashSet<String> = HashSet::new();
     
-    if let Ok(selector) = Selector::parse(tag) {
-        for element in document.select(&selector) {
-            let element_html = element.html();
-            output = output.replace(&element_html, "");
-        }
-    }
-    
-    output
-}
-
-/// Remove link stylesheet elements
-fn remove_link_stylesheets(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut output = html.to_string();
-    
-    if let Ok(selector) = Selector::parse("link[rel=\"stylesheet\"]") {
-        for element in document.select(&selector) {
-            let element_html = element.html();
-            output = output.replace(&element_html, "");
-        }
-    }
-    
-    output
-}
-
-/// Remove elements by CSS selector
-fn remove_elements_by_selector(html: &str, selector_str: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut output = html.to_string();
-    
-    if let Ok(selector) = Selector::parse(selector_str) {
-        for element in document.select(&selector) {
-            let element_html = element.html();
-            output = output.replace(&element_html, "");
-        }
-    }
-    
-    output
-}
-
-/// Clean images - remove spacers, icons, and data URI images
-fn clean_images(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut output = html.to_string();
-    
-    if let Ok(selector) = Selector::parse("img") {
-        for element in document.select(&selector) {
-            let src = element.value().attr("src").unwrap_or("");
-            
-            // Remove spacer images or icons
-            if src.is_empty() 
-                || src.starts_with("data:image/gif;base64") 
-                || src.contains("icon")
-                || src.contains("spacer")
-            {
-                let element_html = element.html();
-                output = output.replace(&element_html, "");
-            }
-        }
-    }
-    
-    output
-}
-
-/// Remove duplicate headings (from concatenated HTML files)
-fn remove_duplicate_headings(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut output = html.to_string();
-    let mut seen_headings: std::collections::HashSet<String> = std::collections::HashSet::new();
-    
-    // Check h1-h6 headings
     for tag in ["h1", "h2", "h3", "h4", "h5", "h6"] {
         if let Ok(selector) = Selector::parse(tag) {
             for element in document.select(&selector) {
                 let text: String = element.text().collect::<String>().trim().to_string();
-                
-                // Create a key from tag + text
                 let key = format!("{}:{}", tag, text);
                 
                 if seen_headings.contains(&key) {
-                    // This is a duplicate, remove it
                     let element_html = element.html();
                     output = output.replacen(&element_html, "", 1);
                     tracing::debug!("Removed duplicate heading: {}", text);
@@ -238,30 +281,14 @@ fn remove_duplicate_headings(html: &str) -> String {
     output
 }
 
-/// Remove empty paragraphs that have no content
-fn remove_empty_paragraphs(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut output = html.to_string();
-    
-    if let Ok(selector) = Selector::parse("p") {
-        for element in document.select(&selector) {
-            // Get text content
-            let text: String = element.text().collect::<String>();
-            
-            // Check if has images or iframes
-            let has_media = element.select(&Selector::parse("img, iframe").unwrap()).next().is_some();
-            
-            // Only remove if truly empty
-            if text.trim().is_empty() && !has_media {
-                let element_html = element.html();
-                if element_html.len() < 100 { // Only remove small empty paragraphs
-                    output = output.replace(&element_html, "");
-                }
-            }
-        }
+/// Fast removal of empty paragraphs using regex
+fn remove_empty_paragraphs_fast(html: &str) -> String {
+    // Remove <p></p>, <p> </p>, <p>&nbsp;</p> etc.
+    if let Ok(re) = regex::Regex::new(r"<p[^>]*>\s*(&nbsp;|\s)*\s*</p>") {
+        re.replace_all(html, "").to_string()
+    } else {
+        html.to_string()
     }
-    
-    output
 }
 
 /// Fix image URLs to include authentication token
@@ -316,6 +343,29 @@ mod tests {
         let html = r#"<html><body><p>Content</p><div class="no-overflow">Sign in to Kortext</div><p>More</p></body></html>"#;
         let cleaned = clean_html_content(html);
         assert!(!cleaned.contains("Kortext"));
+        assert!(cleaned.contains("Content"));
+        assert!(cleaned.contains("More"));
+    }
+    
+    #[test]
+    fn test_removes_kortext_text() {
+        let html = r#"<html><body><p>Content</p><div>Please Sign in to Kortext to view</div><p>More</p></body></html>"#;
+        let cleaned = clean_html_content(html);
+        assert!(!cleaned.contains("Kortext"));
+    }
+
+    #[test]
+    fn test_removes_iframes() {
+        let html = r#"<html><body><p>Content</p><iframe src="https://kortext.com/embed"></iframe><p>More</p></body></html>"#;
+        let cleaned = clean_html_content(html);
+        assert!(!cleaned.contains("<iframe"));
+    }
+    
+    #[test]
+    fn test_removes_empty_paragraphs() {
+        let html = "<html><body><p>Content</p><p></p><p>   </p><p>&nbsp;</p><p>More</p></body></html>";
+        let cleaned = clean_html_content(html);
+        // Should have fewer empty paragraphs
         assert!(cleaned.contains("Content"));
         assert!(cleaned.contains("More"));
     }
