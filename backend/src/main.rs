@@ -16,7 +16,7 @@ mod routes;
 
 use axum::{
     Router,
-    http::Method,
+    http::{Method, HeaderName, HeaderValue},
 };
 use tower_http::cors::{CorsLayer, Any};
 use tower_http::trace::TraceLayer;
@@ -40,11 +40,16 @@ async fn main() {
     tracing::info!("Starting MyLMS Backend on {}:{}", config.host, config.port);
     tracing::info!("Moodle URL: {}", config.moodle_url);
 
-    // Build CORS layer
+    // Build CORS layer - very permissive for development
     let cors = CorsLayer::new()
-        .allow_methods([Method::GET, Method::POST, Method::DELETE, Method::OPTIONS])
+        .allow_methods([Method::GET, Method::POST, Method::DELETE, Method::OPTIONS, Method::PUT, Method::PATCH])
         .allow_headers(Any)
-        .allow_origin(Any); // TODO: Restrict in production
+        .allow_origin(Any)
+        .expose_headers([
+            HeaderName::from_static("content-type"),
+            HeaderName::from_static("authorization"),
+        ])
+        .max_age(std::time::Duration::from_secs(3600));
 
     // Build the router
     let app = Router::new()
