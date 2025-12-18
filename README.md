@@ -1,42 +1,38 @@
 # MyLMS
 
-<p align="center">
-  <strong>A modern, high-performance dashboard for Moodle-based Learning Management Systems</strong>
-</p>
+**A modern, high-performance dashboard for Moodle-based Learning Management Systems**
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js">
-  <img src="https://img.shields.io/badge/Rust-Axum-orange?logo=rust" alt="Rust">
-  <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker" alt="Docker">
-</p>
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![Rust](https://img.shields.io/badge/Rust-Axum-orange?logo=rust)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)
 
 ---
 
-## ✨ Features
+## Features
 
-### 🚀 API-First Architecture
+### API-First Architecture
 - **Direct API Access** — Fetches Pages, Resources, Folders, URLs, and Lessons instantly via the Moodle Mobile API
 - **N+1 Optimization** — Pre-fetches resource maps in batches to eliminate redundant API calls
 - **High-Performance Backend** — Rust-powered API server for lightning-fast content cleaning and processing
 
-### 📱 Offline-First Design
+### Offline-First Design
 - **Client-Side Caching** — Uses IndexedDB to store course structure and content locally
-- **Multi-Layer Caching** — Browser → Server → Redis caching hierarchy for optimal performance
+- **Multi-Layer Caching** — Browser, Server, and Redis caching hierarchy for optimal performance
 - **Instant Navigation** — Previously visited pages load instantly without network requests
 
-### 🎨 Clean Reading Experience
+### Clean Reading Experience
 - **Distraction-Free UI** — Standardized typography for comfortable reading
 - **Dark Mode** — Native dark mode support for all content
 - **LaTeX Support** — Beautiful mathematical equation rendering with KaTeX
 
-### 🔐 Flexible Authentication
+### Flexible Authentication
 - **Token-Based Auth** — Secure access via Moodle Mobile Token
 - **Session Persistence** — Seamless user experience across sessions
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
@@ -58,12 +54,12 @@
 | Component | Technology | Description |
 |-----------|------------|-------------|
 | **Frontend** | Next.js 16, React 19, TypeScript | Modern web dashboard with offline support |
-| **Backend** | Rust, Axum 0.8, Tokio | High-performance API server & content processor |
-| **Caching** | Redis 7, IndexedDB | Multi-layer caching for speed & offline access |
+| **Backend** | Rust, Axum 0.8, Tokio | High-performance API server and content processor |
+| **Caching** | Redis 7, IndexedDB | Multi-layer caching for speed and offline access |
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - [Node.js 18+](https://nodejs.org/)
@@ -101,7 +97,7 @@ npm run dev  # Runs on http://localhost:3000
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -114,7 +110,7 @@ npm run dev  # Runs on http://localhost:3000
 
 ---
 
-## 📖 Usage
+## Usage
 
 1. **Login** — Enter your Moodle Mobile Token to authenticate
 2. **Dashboard** — View all your enrolled courses at a glance
@@ -124,22 +120,22 @@ npm run dev  # Runs on http://localhost:3000
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 mylms-rewrite/
 ├── backend/              # Rust API server
 │   ├── src/
 │   │   ├── main.rs       # Application entry point
-│   │   ├── content/      # Content cleaning & processing
+│   │   ├── content/      # Content cleaning and processing
 │   │   └── moodle/       # Moodle API client
 │   └── Cargo.toml
 │
 ├── mylms-dashboard/      # Next.js frontend
 │   ├── src/
 │   │   ├── app/          # Next.js App Router pages
-│   │   └── lib/          # Core logic & utilities
-│   │       ├── moodle/   # API client & auth
+│   │   └── lib/          # Core logic and utilities
+│   │       ├── moodle/   # API client and auth
 │   │       └── cache/    # Caching adapters
 │   └── package.json
 │
@@ -148,34 +144,28 @@ mylms-rewrite/
 
 ---
 
-## 📋 TODO
+## TODO
 
 The following features are planned for future development:
 
-- [ ] **Fix assignments** — Resolve issues with assignment display and submission
-- [ ] **Notes downloading** — Enable downloading and exporting of course notes
-- [ ] **Google Drive/OneDrive integration** — Sync course content with cloud storage
-- [ ] **User account creation** — Implement user registration flow
-- [ ] **Saving tokens to account** — Persist authentication tokens securely to user profiles
-- [ ] **Automatic prescribed book acquisition** — Auto-fetch required textbooks and resources
-- [ ] **Theme customisation** — User-selectable themes and color schemes
-- [ ] **More functional dashboard** — Add favourites, recently viewed, and downloaded items sections
-- [ ] **More functional book integration** — Enhanced e-book reading experience and annotations
+- [ ] Fix assignments
+- [ ] Notes downloading
+- [ ] Google Drive/OneDrive integration
+- [ ] User account creation
+- [ ] Saving tokens to account
+- [ ] Automatic prescribed book acquisition
+- [ ] Theme customisation
+- [ ] More functional dashboard (favourites, recently viewed, downloaded items)
+- [ ] More functional book integration
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Contributions are welcome. Please feel free to submit a Pull Request.
 
 ---
 
-<p align="center">
-  Made with ❤️ for students everywhere
-</p>
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
