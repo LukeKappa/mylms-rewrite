@@ -62,37 +62,44 @@
 ## Quick Start
 
 ### Prerequisites
-- [Node.js 18+](https://nodejs.org/)
-- [Rust 1.70+](https://rustup.rs/) (for backend development)
-- [Docker](https://docker.com/) (optional, recommended)
+- [Node.js 20+](https://nodejs.org/)
+- [Rust 1.70+](https://rustup.rs/)
+- [Docker](https://docker.com/) (optional, for production)
 
-### Option 1: Docker Compose (Recommended)
+### Development Setup (Recommended)
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/mylms-rewrite.git
-cd mylms-rewrite
+The fastest way to develop with hot-reload:
 
-# Start all services
-docker-compose up --build
+```powershell
+# First time: install dependencies
+.\dev.ps1 -Install
+
+# Start both services with hot-reload
+.\dev.ps1
 ```
 
-Access the dashboard at **http://localhost:3000**
+Or manually:
 
-### Option 2: Manual Setup
-
-**Backend:**
-```bash
+```powershell
+# Terminal 1: Backend with hot-reload
 cd backend
-cp .env.example .env
-cargo run  # Runs on http://localhost:3001
+$env:RUST_LOG="mylms_backend=debug"
+cargo watch -x run
+
+# Terminal 2: Frontend
+cd mylms-dashboard
+npm run dev
 ```
 
-**Frontend:**
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:3001
+
+Changes to Rust files automatically recompile. Changes to Next.js files hot-reload instantly.
+
+### Docker Compose (Production)
+
 ```bash
-cd mylms-dashboard
-npm install
-npm run dev  # Runs on http://localhost:3000
+docker-compose up --build
 ```
 
 ---
@@ -128,6 +135,7 @@ mylms-rewrite/
 │   ├── src/
 │   │   ├── main.rs       # Application entry point
 │   │   ├── content/      # Content cleaning and processing
+│   │   │   └── cleaner.rs
 │   │   └── moodle/       # Moodle API client
 │   └── Cargo.toml
 │
@@ -139,7 +147,48 @@ mylms-rewrite/
 │   │       └── cache/    # Caching adapters
 │   └── package.json
 │
+├── dev.ps1               # Development script (hot-reload)
 └── docker-compose.yml    # Full-stack Docker setup
+```
+
+---
+
+## Development
+
+### Hot-Reload Workflow
+
+For the fastest iteration:
+
+| Service | Command | Auto-Reload |
+|---------|---------|-------------|
+| Backend | `cargo watch -x run` | On save |
+| Frontend | `npm run dev` | Instant HMR |
+
+### Backend Development
+
+```powershell
+cd backend
+
+# Run with debug logging
+$env:RUST_LOG="mylms_backend=debug,tower_http=debug"
+cargo watch -x run
+
+# Run tests
+cargo test
+
+# Check without building
+cargo check
+```
+
+### Frontend Development
+
+```powershell
+cd mylms-dashboard
+
+npm run dev      # Development server
+npm run build    # Production build
+npm run lint     # ESLint
+npm test         # Jest tests
 ```
 
 ---

@@ -1,0 +1,95 @@
+warning: unused import: `HeaderValue`
+  --> src\main.rs:19:32
+   |
+19 |     http::{Method, HeaderName, HeaderValue},
+   |                                ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `client`
+   --> src\routes\content.rs:283:9
+    |
+283 |     let client = MoodleClient::new(&config);
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_client`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `redis_url` is never read
+  --> src\config.rs:15:9
+   |
+ 7 | pub struct Config {
+   |            ------ field in this struct
+...
+15 |     pub redis_url: Option<String>,
+   |         ^^^^^^^^^
+   |
+   = note: `Config` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variants `InvalidToken` and `Cache` are never constructed
+  --> src\error.rs:18:5
+   |
+13 | pub enum AppError {
+   |          -------- variants in this enum
+...
+18 |     InvalidToken(String),
+   |     ^^^^^^^^^^^^
+...
+33 |     Cache(String),
+   |     ^^^^^
+   |
+   = note: `AppError` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: methods `get_page_content` and `get_labels_by_courses` are never used
+   --> src\moodle\client.rs:128:18
+    |
+ 17 | impl MoodleClient {
+    | ----------------- methods in this implementation
+...
+128 |     pub async fn get_page_content(&self, token: &str, _pageid: i64) -> Result<Value> {
+    |                  ^^^^^^^^^^^^^^^^
+...
+133 |     pub async fn get_labels_by_courses(&self, token: &str, course_ids: &[i64]) -> Result<Value> {
+    |                  ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `clean_html_content` is never used
+  --> src\content\cleaner.rs:32:8
+   |
+32 | pub fn clean_html_content(html: &str) -> String {
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: field `client` is never read
+  --> src\libgen\client.rs:12:5
+   |
+10 | pub struct LibGenClient {
+   |            ------------ field in this struct
+11 |     // We'll implement our own HTTP-based search since libgen-rs API is complex
+12 |     client: reqwest::Client,
+   |     ^^^^^^
+
+warning: method `download_book` is never used
+  --> src\libgen\client.rs:70:18
+   |
+15 | impl LibGenClient {
+   | ----------------- method in this implementation
+...
+70 |     pub async fn download_book(&self, md5: &str) -> Result<Vec<u8>, AppError> {
+   |                  ^^^^^^^^^^^^^
+
+warning: trait `CacheBackend` is never used
+  --> src\cache\mod.rs:11:11
+   |
+11 | pub trait CacheBackend: Send + Sync {
+   |           ^^^^^^^^^^^^
+
+warning: method `has` is never used
+  --> src\cache\memory.rs:73:12
+   |
+23 | impl MemoryCache {
+   | ---------------- method in this implementation
+...
+73 |     pub fn has(&self, key: &str) -> bool {
+   |            ^^^
+
+warning: `mylms-backend` (bin "mylms-backend") generated 10 warnings (run `cargo fix --bin "mylms-backend" -p mylms-backend` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.28s

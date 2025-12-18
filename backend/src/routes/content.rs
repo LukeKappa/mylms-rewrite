@@ -3,12 +3,13 @@
 use axum::{
     extract::{Query, State},
     http::header::AUTHORIZATION,
-    routing::{get, delete},
+    routing::{get, delete, post},
     Json, Router,
 };
 use axum::http::HeaderMap;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
+use futures::future::join_all;
 
 use crate::cache::{MemoryCache, CACHE};
 use crate::config::Config;
@@ -31,6 +32,28 @@ pub struct ContentResponse {
     error: Option<String>,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct BatchPrefetchRequest {
+    urls: Vec<String>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct BatchPrefetchItem {
+    url: String,
+    success: bool,
+    content: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    error: Option<String>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct BatchPrefetchResponse {
+    success: bool,
+    total: usize,
+    loaded: usize,
+    items: Vec<BatchPrefetchItem>,
+}
+
 #[derive(Debug, Serialize)]
 pub struct CacheStatusResponse {
     success: bool,
@@ -41,6 +64,7 @@ pub struct CacheStatusResponse {
 pub fn routes() -> Router<Config> {
     Router::new()
         .route("/activity", get(get_activity_content))
+        .route("/batch", post(batch_prefetch))
         .route("/cache", delete(clear_cache))
 }
 
@@ -244,4 +268,147 @@ async fn clear_cache() -> Result<Json<CacheStatusResponse>> {
             message: "Failed to clear cache".to_string(),
         }))
     }
+}
+
+/// Batch prefetch multiple activities at once
+async fn batch_prefetch(
+    State(config): State<Config>,
+    headers: HeaderMap,
+    Json(request): Json<BatchPrefetchRequest>,
+) -> Result<Json<BatchPrefetchResponse>> {
+    let token = extract_token(&headers)?;
+    
+    tracing::info!("Batch prefetch request for {} URLs", request.urls.len());
+    
+    let client = MoodleClient::new(&config);
+    
+    // Process URLs concurrently with a semaphore to limit parallelism
+    use tokio::sync::Semaphore;
+    use std::sync::Arc;
+    
+    let semaphore = Arc::new(Semaphore::new(10)); // Max 10 concurrent requests
+    
+    let futures: Vec<_> = request.urls.iter().map(|url| {
+        let url = url.clone();
+        let token = token.clone();
+        let config = config.clone();
+        let semaphore = semaphore.clone();
+        
+        async move {
+            let _permit = semaphore.acquire().await;
+            
+            // Check cache first
+            let cache_key = format!("activity:{}", MemoryCache::url_hash(&url));
+            if let Some(cached_content) = CACHE.get(&cache_key) {
+                return BatchPrefetchItem {
+                    url,
+                    success: true,
+                    content: Some(cached_content),
+                    error: None,
+                };
+            }
+            
+            // Fetch and clean content
+            let client = MoodleClient::new(&config);
+            match fetch_activity_content(&client, &token, &url).await {
+                Ok(content) => {
+                    let cleaned = clean_html_with_token(&content, Some(&token));
+                    CACHE.set(&cache_key, &cleaned, Some(Duration::from_secs(3600)));
+                    
+                    BatchPrefetchItem {
+                        url,
+                        success: true,
+                        content: Some(cleaned),
+                        error: None,
+                    }
+                }
+                Err(e) => {
+                    BatchPrefetchItem {
+                        url,
+                        success: false,
+                        content: None,
+                        error: Some(e.to_string()),
+                    }
+                }
+            }
+        }
+    }).collect();
+    
+    let items: Vec<BatchPrefetchItem> = join_all(futures).await;
+    let loaded = items.iter().filter(|i| i.success).count();
+    
+    tracing::info!("Batch prefetch complete: {}/{} loaded", loaded, items.len());
+    
+    Ok(Json(BatchPrefetchResponse {
+        success: true,
+        total: items.len(),
+        loaded,
+        items,
+    }))
+}
+
+/// Helper to fetch activity content (extracted from get_activity_content)
+async fn fetch_activity_content(client: &MoodleClient, token: &str, url: &str) -> std::result::Result<String, String> {
+    // Extract module ID from URL
+    let cmid = extract_module_id(url)
+        .ok_or_else(|| "Invalid URL format".to_string())?;
+    
+    // Get module info
+    let mod_info = client.get_course_module(token, cmid).await
+        .map_err(|e| format!("Failed to get module info: {}", e))?;
+    
+    let course_id = mod_info
+        .get("cm")
+        .and_then(|cm| cm.get("course"))
+        .and_then(|c| c.as_i64())
+        .ok_or_else(|| "Could not extract course ID".to_string())?;
+    
+    // Get course contents
+    let sections = client.get_course_contents(token, course_id).await
+        .map_err(|e| format!("Failed to get course contents: {}", e))?;
+    
+    // Find HTML files for this module
+    let mut html_files: Vec<(String, String)> = Vec::new();
+    
+    for section in &sections {
+        for module in &section.modules {
+            if module.id == cmid {
+                if let Some(contents) = &module.contents {
+                    for content in contents {
+                        let filename = content.filename.to_lowercase();
+                        if filename.ends_with(".html") || filename.ends_with(".htm") {
+                            if let Some(fileurl) = &content.fileurl {
+                                html_files.push((fileurl.clone(), content.filename.clone()));
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        if !html_files.is_empty() {
+            break;
+        }
+    }
+    
+    if html_files.is_empty() {
+        // Fallback: Try direct download
+        return client.download_file(token, url).await
+            .map_err(|e| format!("No HTML content: {}", e));
+    }
+    
+    // Download and combine HTML files
+    let mut combined_html = String::new();
+    for (fileurl, _) in &html_files {
+        if let Ok(html) = client.download_file(token, fileurl).await {
+            combined_html.push_str(&html);
+            combined_html.push_str("\n\n");
+        }
+    }
+    
+    if combined_html.is_empty() {
+        return Err("Failed to download content".to_string());
+    }
+    
+    Ok(combined_html)
 }
