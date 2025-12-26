@@ -1,0 +1,225 @@
+/**
+ * Moodle Content Styles
+ * 
+ * Global styles for rendering cleaned Moodle HTML content.
+ * Provides a distraction-free, dark-mode reading experience.
+ */
+
+.html-content {
+  width: 100% !important;
+  max-width: none !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: #d4d4d4;
+  font-size: 1rem;
+}
+
+/* Fix KaTeX error colors - force inherit instead of red */
+.html-content .katex .mord,
+.html-content .katex .minner,
+.html-content .katex .mopen,
+.html-content .katex .mclose,
+.html-content .katex .mbin,
+.html-content .katex .mrel,
+.html-content .katex .mpunct,
+.html-content .katex-error {
+  color: inherit !important;
+}
+
+/* Override any inline red styles */
+.html-content span[style*="color: red"],
+.html-content span[style*="color:red"],
+.html-content span[style*="color:#f"],
+.html-content span[style*="color: #f"],
+.html-content *[style*="color: rgb(255"] {
+  color: #d4d4d4 !important;
+}
+
+/* Headings */
+.html-content h1, 
+.html-content h2, 
+.html-content h3, 
+.html-content h4 {
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.html-content h1 { 
+  font-size: 2rem; 
+  border-bottom: 1px solid #404040; 
+  padding-bottom: 0.5rem; 
+}
+
+.html-content h2 { 
+  font-size: 1.5rem; 
+}
+
+.html-content h3 { 
+  font-size: 1.25rem; 
+  color: #e5e5e5; 
+}
+
+.html-content h4 { 
+  font-size: 1.1rem; 
+  color: #e5e5e5; 
+}
+
+/* Reset margins and paddings to ensure full width */
+.html-content p,
+.html-content div,
+.html-content section,
+.html-content article {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Text Elements */
+.html-content p { 
+  margin-bottom: 1rem; 
+}
+
+.html-content strong, 
+.html-content b { 
+  color: #ffffff; 
+  font-weight: 600; 
+}
+
+.html-content em, 
+.html-content i { 
+  color: #a3a3a3; 
+}
+
+.html-content span { 
+  color: inherit; 
+}
+
+/* Lists - Keep indentation for lists */
+.html-content ul, 
+.html-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem !important; /* Restore list indentation */
+}
+
+.html-content li { 
+  margin-bottom: 0.25rem; 
+}
+
+.html-content ul { 
+  list-style-type: disc; 
+}
+
+.html-content ol { 
+  list-style-type: decimal; 
+}
+
+/* Links */
+.html-content a {
+  color: #60a5fa;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.html-content a:hover { 
+  border-bottom-color: #60a5fa; 
+}
+
+/* Tables */
+.html-content table {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0;
+  border: 1px solid #404040;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.html-content th {
+  background: #262626 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #404040;
+}
+
+.html-content td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #404040;
+  background: #171717 !important; /* Force dark background */
+  color: #d4d4d4 !important; /* Force light text */
+}
+
+/* Force text color inside table cells */
+.html-content td p,
+.html-content td span,
+.html-content td div,
+.html-content td li {
+  color: #d4d4d4 !important;
+}
+
+.html-content tr:last-child td { 
+  border-bottom: none; 
+}
+
+.html-content tr:hover td { 
+  background: #1f1f1f !important; 
+}
+
+/* Images */
+.html-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  border: 1px solid #404040;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Code Blocks */
+.html-content pre {
+  background: #171717;
+  border: 1px solid #404040;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.html-content code {
+  background: #171717;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  color: #e5e5e5;
+}
+
+.html-content pre code {
+  padding: 0;
+  background: transparent;
+}
+
+/* Blockquotes */
+.html-content blockquote {
+  background: #1f1f1f;
+  border-left: 4px solid #60a5fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  color: #a3a3a3;
+}
+
+/* Horizontal Rule */
+.html-content hr {
+  border: none;
+  border-top: 1px solid #404040;
+  margin: 2rem 0;
+}

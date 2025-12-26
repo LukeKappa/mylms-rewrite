@@ -1,0 +1,975 @@
+# Moodle API Function Map
+
+Generated: 2025-11-22T12:32:38.725Z
+
+Total Functions: 464
+
+## Categories
+
+### aiplacement (3 functions)
+
+- **aiplacement_courseassist_summarise_text**
+  - Version: 2024100700
+- **aiplacement_editor_generate_image**
+  - Version: 2024100700
+- **aiplacement_editor_generate_text**
+  - Version: 2024100700
+
+### block (2 functions)
+
+- **block_recentlyaccesseditems_get_recent_items**
+  - Version: 2024100700
+- **block_starredcourses_get_starred_courses**
+  - Version: 2024100700
+
+### core (176 functions)
+
+- **core_ai_get_policy_status**
+  - Version: 2024100700.06
+- **core_ai_set_policy_status**
+  - Version: 2024100700.06
+- **core_badges_get_badge**
+  - Version: 2024100700.06
+- **core_badges_get_user_badge_by_hash**
+  - Version: 2024100700.06
+- **core_badges_get_user_badges**
+  - Version: 2024100700.06
+- **core_block_fetch_addable_blocks**
+  - Version: 2024100700.06
+- **core_block_get_course_blocks**
+  - Version: 2024100700.06
+- **core_block_get_dashboard_blocks**
+  - Version: 2024100700.06
+- **core_blog_add_entry**
+  - Version: 2024100700.06
+- **core_blog_delete_entry**
+  - Version: 2024100700.06
+- **core_blog_get_access_information**
+  - Version: 2024100700.06
+- **core_blog_get_entries**
+  - Version: 2024100700.06
+- **core_blog_prepare_entry_for_edition**
+  - Version: 2024100700.06
+- **core_blog_update_entry**
+  - Version: 2024100700.06
+- **core_blog_view_entries**
+  - Version: 2024100700.06
+- **core_calendar_create_calendar_events**
+  - Version: 2024100700.06
+- **core_calendar_delete_calendar_events**
+  - Version: 2024100700.06
+- **core_calendar_get_action_events_by_course**
+  - Version: 2024100700.06
+- **core_calendar_get_action_events_by_courses**
+  - Version: 2024100700.06
+- **core_calendar_get_action_events_by_timesort**
+  - Version: 2024100700.06
+- **core_calendar_get_allowed_event_types**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_access_information**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_day_view**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_event_by_id**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_events**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_export_token**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_monthly_view**
+  - Version: 2024100700.06
+- **core_calendar_get_calendar_upcoming_view**
+  - Version: 2024100700.06
+- **core_calendar_submit_create_update_form**
+  - Version: 2024100700.06
+- **core_calendar_update_event_start_day**
+  - Version: 2024100700.06
+- **core_comment_add_comments**
+  - Version: 2024100700.06
+- **core_comment_delete_comments**
+  - Version: 2024100700.06
+- **core_comment_get_comments**
+  - Version: 2024100700.06
+- **core_competency_competency_viewed**
+  - Version: 2024100700.06
+- **core_competency_delete_evidence**
+  - Version: 2024100700.06
+- **core_competency_get_scale_values**
+  - Version: 2024100700.06
+- **core_competency_grade_competency_in_course**
+  - Version: 2024100700.06
+- **core_competency_list_course_competencies**
+  - Version: 2024100700.06
+- **core_competency_user_competency_plan_viewed**
+  - Version: 2024100700.06
+- **core_competency_user_competency_viewed**
+  - Version: 2024100700.06
+- **core_competency_user_competency_viewed_in_course**
+  - Version: 2024100700.06
+- **core_competency_user_competency_viewed_in_plan**
+  - Version: 2024100700.06
+- **core_completion_get_activities_completion_status**
+  - Version: 2024100700.06
+- **core_completion_get_course_completion_status**
+  - Version: 2024100700.06
+- **core_completion_mark_course_self_completed**
+  - Version: 2024100700.06
+- **core_completion_update_activity_completion_status_manually**
+  - Version: 2024100700.06
+- **core_course_check_updates**
+  - Version: 2024100700.06
+- **core_course_get_categories**
+  - Version: 2024100700.06
+- **core_course_get_contents**
+  - Version: 2024100700.06
+- **core_course_get_course_module**
+  - Version: 2024100700.06
+- **core_course_get_course_module_by_instance**
+  - Version: 2024100700.06
+- **core_course_get_courses**
+  - Version: 2024100700.06
+- **core_course_get_courses_by_field**
+  - Version: 2024100700.06
+- **core_course_get_enrolled_courses_by_timeline_classification**
+  - Version: 2024100700.06
+- **core_course_get_enrolled_courses_with_action_events_by_timeline_classification**
+  - Version: 2024100700.06
+- **core_course_get_recent_courses**
+  - Version: 2024100700.06
+- **core_course_get_updates_since**
+  - Version: 2024100700.06
+- **core_course_get_user_administration_options**
+  - Version: 2024100700.06
+- **core_course_get_user_navigation_options**
+  - Version: 2024100700.06
+- **core_course_search_courses**
+  - Version: 2024100700.06
+- **core_course_set_favourite_courses**
+  - Version: 2024100700.06
+- **core_course_view_course**
+  - Version: 2024100700.06
+- **core_enrol_get_course_enrolment_methods**
+  - Version: 2024100700.06
+- **core_enrol_get_enrolled_users**
+  - Version: 2024100700.06
+- **core_enrol_get_users_courses**
+  - Version: 2024100700.06
+- **core_enrol_search_users**
+  - Version: 2024100700.06
+- **core_files_delete_draft_files**
+  - Version: 2024100700.06
+- **core_files_get_files**
+  - Version: 2024100700.06
+- **core_files_get_unused_draft_itemid**
+  - Version: 2024100700.06
+- **core_filters_get_all_states**
+  - Version: 2024100700.06
+- **core_filters_get_available_in_context**
+  - Version: 2024100700.06
+- **core_get_component_strings**
+  - Version: 2024100700.06
+- **core_grades_get_enrolled_users_for_search_widget**
+  - Version: 2024100700.06
+- **core_grades_get_enrolled_users_for_selector**
+  - Version: 2024100700.06
+- **core_grades_get_gradable_users**
+  - Version: 2024100700.06
+- **core_grades_get_gradeitems**
+  - Version: 2024100700.06
+- **core_grades_get_groups_for_search_widget**
+  - Version: 2024100700.06
+- **core_grades_get_groups_for_selector**
+  - Version: 2024100700.06
+- **core_grades_grader_gradingpanel_point_fetch**
+  - Version: 2024100700.06
+- **core_grades_grader_gradingpanel_point_store**
+  - Version: 2024100700.06
+- **core_grades_grader_gradingpanel_scale_fetch**
+  - Version: 2024100700.06
+- **core_grades_grader_gradingpanel_scale_store**
+  - Version: 2024100700.06
+- **core_group_get_activity_allowed_groups**
+  - Version: 2024100700.06
+- **core_group_get_activity_groupmode**
+  - Version: 2024100700.06
+- **core_group_get_course_groupings**
+  - Version: 2024100700.06
+- **core_group_get_course_groups**
+  - Version: 2024100700.06
+- **core_group_get_course_user_groups**
+  - Version: 2024100700.06
+- **core_group_get_groups_for_selector**
+  - Version: 2024100700.06
+- **core_h5p_get_trusted_h5p_file**
+  - Version: 2024100700.06
+- **core_message_block_user**
+  - Version: 2024100700.06
+- **core_message_confirm_contact_request**
+  - Version: 2024100700.06
+- **core_message_create_contact_request**
+  - Version: 2024100700.06
+- **core_message_data_for_messagearea_search_messages**
+  - Version: 2024100700.06
+- **core_message_decline_contact_request**
+  - Version: 2024100700.06
+- **core_message_delete_contacts**
+  - Version: 2024100700.06
+- **core_message_delete_conversations_by_id**
+  - Version: 2024100700.06
+- **core_message_delete_message**
+  - Version: 2024100700.06
+- **core_message_delete_message_for_all_users**
+  - Version: 2024100700.06
+- **core_message_get_blocked_users**
+  - Version: 2024100700.06
+- **core_message_get_contact_requests**
+  - Version: 2024100700.06
+- **core_message_get_conversation**
+  - Version: 2024100700.06
+- **core_message_get_conversation_between_users**
+  - Version: 2024100700.06
+- **core_message_get_conversation_counts**
+  - Version: 2024100700.06
+- **core_message_get_conversation_members**
+  - Version: 2024100700.06
+- **core_message_get_conversation_messages**
+  - Version: 2024100700.06
+- **core_message_get_conversations**
+  - Version: 2024100700.06
+- **core_message_get_member_info**
+  - Version: 2024100700.06
+- **core_message_get_messages**
+  - Version: 2024100700.06
+- **core_message_get_received_contact_requests_count**
+  - Version: 2024100700.06
+- **core_message_get_self_conversation**
+  - Version: 2024100700.06
+- **core_message_get_unread_conversation_counts**
+  - Version: 2024100700.06
+- **core_message_get_unread_conversations_count**
+  - Version: 2024100700.06
+- **core_message_get_unread_notification_count**
+  - Version: 2024100700.06
+- **core_message_get_user_contacts**
+  - Version: 2024100700.06
+- **core_message_get_user_message_preferences**
+  - Version: 2024100700.06
+- **core_message_get_user_notification_preferences**
+  - Version: 2024100700.06
+- **core_message_mark_all_conversation_messages_as_read**
+  - Version: 2024100700.06
+- **core_message_mark_all_notifications_as_read**
+  - Version: 2024100700.06
+- **core_message_mark_message_read**
+  - Version: 2024100700.06
+- **core_message_mark_notification_read**
+  - Version: 2024100700.06
+- **core_message_message_processor_config_form**
+  - Version: 2024100700.06
+- **core_message_message_search_users**
+  - Version: 2024100700.06
+- **core_message_mute_conversations**
+  - Version: 2024100700.06
+- **core_message_search_contacts**
+  - Version: 2024100700.06
+- **core_message_send_instant_messages**
+  - Version: 2024100700.06
+- **core_message_send_messages_to_conversation**
+  - Version: 2024100700.06
+- **core_message_set_favourite_conversations**
+  - Version: 2024100700.06
+- **core_message_unblock_user**
+  - Version: 2024100700.06
+- **core_message_unmute_conversations**
+  - Version: 2024100700.06
+- **core_message_unset_favourite_conversations**
+  - Version: 2024100700.06
+- **core_my_view_page**
+  - Version: 2024100700.06
+- **core_notes_create_notes**
+  - Version: 2024100700.06
+- **core_notes_delete_notes**
+  - Version: 2024100700.06
+- **core_notes_get_course_notes**
+  - Version: 2024100700.06
+- **core_notes_view_notes**
+  - Version: 2024100700.06
+- **core_question_update_flag**
+  - Version: 2024100700.06
+- **core_rating_add_rating**
+  - Version: 2024100700.06
+- **core_rating_get_item_ratings**
+  - Version: 2024100700.06
+- **core_reportbuilder_can_view_system_report**
+  - Version: 2024100700.06
+- **core_reportbuilder_list_reports**
+  - Version: 2024100700.06
+- **core_reportbuilder_retrieve_report**
+  - Version: 2024100700.06
+- **core_reportbuilder_retrieve_system_report**
+  - Version: 2024100700.06
+- **core_reportbuilder_view_report**
+  - Version: 2024100700.06
+- **core_search_get_results**
+  - Version: 2024100700.06
+- **core_search_get_search_areas_list**
+  - Version: 2024100700.06
+- **core_search_get_top_results**
+  - Version: 2024100700.06
+- **core_search_view_results**
+  - Version: 2024100700.06
+- **core_table_get_dynamic_table_content**
+  - Version: 2024100700.06
+- **core_tag_get_tag_areas**
+  - Version: 2024100700.06
+- **core_tag_get_tag_cloud**
+  - Version: 2024100700.06
+- **core_tag_get_tag_collections**
+  - Version: 2024100700.06
+- **core_tag_get_tagindex**
+  - Version: 2024100700.06
+- **core_tag_get_tagindex_per_area**
+  - Version: 2024100700.06
+- **core_user_add_user_device**
+  - Version: 2024100700.06
+- **core_user_add_user_private_files**
+  - Version: 2024100700.06
+- **core_user_agree_site_policy**
+  - Version: 2024100700.06
+- **core_user_get_course_user_profiles**
+  - Version: 2024100700.06
+- **core_user_get_private_files_info**
+  - Version: 2024100700.06
+- **core_user_get_user_preferences**
+  - Version: 2024100700.06
+- **core_user_get_users_by_field**
+  - Version: 2024100700.06
+- **core_user_prepare_private_files_for_edition**
+  - Version: 2024100700.06
+- **core_user_remove_user_device**
+  - Version: 2024100700.06
+- **core_user_set_user_preferences**
+  - Version: 2024100700.06
+- **core_user_update_picture**
+  - Version: 2024100700.06
+- **core_user_update_private_files**
+  - Version: 2024100700.06
+- **core_user_update_user_device_public_key**
+  - Version: 2024100700.06
+- **core_user_update_user_preferences**
+  - Version: 2024100700.06
+- **core_user_view_user_list**
+  - Version: 2024100700.06
+- **core_user_view_user_profile**
+  - Version: 2024100700.06
+- **core_webservice_get_site_info**
+  - Version: 2024100700.06
+- **core_xapi_delete_state**
+  - Version: 2024100700.06
+- **core_xapi_delete_states**
+  - Version: 2024100700.06
+- **core_xapi_get_state**
+  - Version: 2024100700.06
+- **core_xapi_get_states**
+  - Version: 2024100700.06
+- **core_xapi_post_state**
+  - Version: 2024100700.06
+- **core_xapi_statement_post**
+  - Version: 2024100700.06
+
+### enrol (4 functions)
+
+- **enrol_guest_get_instance_info**
+  - Version: 2024100700
+- **enrol_guest_validate_password**
+  - Version: 2024100700
+- **enrol_self_enrol_user**
+  - Version: 2024100700
+- **enrol_self_get_instance_info**
+  - Version: 2024100700
+
+### gradereport (8 functions)
+
+- **gradereport_grader_get_users_in_report**
+  - Version: 2024100700
+- **gradereport_overview_get_course_grades**
+  - Version: 2024100700
+- **gradereport_overview_view_grade_report**
+  - Version: 2024100700
+- **gradereport_singleview_get_grade_items_for_search_widget**
+  - Version: 2024100700
+- **gradereport_user_get_access_information**
+  - Version: 2024100700
+- **gradereport_user_get_grade_items**
+  - Version: 2024100700
+- **gradereport_user_get_grades_table**
+  - Version: 2024100700
+- **gradereport_user_view_grade_report**
+  - Version: 2024100700
+
+### local (1 functions)
+
+- **local_cloudwatchmetrics_getmetrics**
+  - Version: 2025020402
+
+### message (6 functions)
+
+- **message_airnotifier_are_notification_preferences_configured**
+  - Version: 2024100700
+- **message_airnotifier_enable_device**
+  - Version: 2024100700
+- **message_airnotifier_get_user_devices**
+  - Version: 2024100700
+- **message_airnotifier_is_system_configured**
+  - Version: 2024100700
+- **message_popup_get_popup_notifications**
+  - Version: 2024100700
+- **message_popup_get_unread_popup_notification_count**
+  - Version: 2024100700
+
+### mod (219 functions)
+
+- **mod_assign_get_assignments**
+  - Version: 2024100700
+- **mod_assign_get_grades**
+  - Version: 2024100700
+- **mod_assign_get_participant**
+  - Version: 2024100700
+- **mod_assign_get_submission_status**
+  - Version: 2024100700
+- **mod_assign_get_submissions**
+  - Version: 2024100700
+- **mod_assign_get_user_flags**
+  - Version: 2024100700
+- **mod_assign_get_user_mappings**
+  - Version: 2024100700
+- **mod_assign_list_participants**
+  - Version: 2024100700
+- **mod_assign_lock_submissions**
+  - Version: 2024100700
+- **mod_assign_remove_submission**
+  - Version: 2024100700
+- **mod_assign_reveal_identities**
+  - Version: 2024100700
+- **mod_assign_revert_submissions_to_draft**
+  - Version: 2024100700
+- **mod_assign_save_grade**
+  - Version: 2024100700
+- **mod_assign_save_grades**
+  - Version: 2024100700
+- **mod_assign_save_submission**
+  - Version: 2024100700
+- **mod_assign_save_user_extensions**
+  - Version: 2024100700
+- **mod_assign_set_user_flags**
+  - Version: 2024100700
+- **mod_assign_start_submission**
+  - Version: 2024100700
+- **mod_assign_submit_for_grading**
+  - Version: 2024100700
+- **mod_assign_submit_grading_form**
+  - Version: 2024100700
+- **mod_assign_unlock_submissions**
+  - Version: 2024100700
+- **mod_assign_view_assign**
+  - Version: 2024100700
+- **mod_assign_view_grading_table**
+  - Version: 2024100700
+- **mod_assign_view_submission_status**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_can_join**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_completion_validate**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_end_meeting**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_get_bigbluebuttonbns_by_courses**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_get_join_url**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_get_recordings**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_get_recordings_to_import**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_meeting_info**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_update_recording**
+  - Version: 2024100700
+- **mod_bigbluebuttonbn_view_bigbluebuttonbn**
+  - Version: 2024100700
+- **mod_book_get_books_by_courses**
+  - Version: 2024100700
+- **mod_book_view_book**
+  - Version: 2024100700
+- **mod_chat_get_chat_latest_messages**
+  - Version: 2024100700
+- **mod_chat_get_chat_users**
+  - Version: 2024100700
+- **mod_chat_get_chats_by_courses**
+  - Version: 2024100700
+- **mod_chat_get_session_messages**
+  - Version: 2024100700
+- **mod_chat_get_sessions**
+  - Version: 2024100700
+- **mod_chat_login_user**
+  - Version: 2024100700
+- **mod_chat_send_chat_message**
+  - Version: 2024100700
+- **mod_chat_view_chat**
+  - Version: 2024100700
+- **mod_chat_view_sessions**
+  - Version: 2024100700
+- **mod_checklist_update_item_state**
+  - Version: 2024101900
+- **mod_choice_delete_choice_responses**
+  - Version: 2024100700
+- **mod_choice_get_choice_options**
+  - Version: 2024100700
+- **mod_choice_get_choice_results**
+  - Version: 2024100700
+- **mod_choice_get_choices_by_courses**
+  - Version: 2024100700
+- **mod_choice_submit_choice_response**
+  - Version: 2024100700
+- **mod_choice_view_choice**
+  - Version: 2024100700
+- **mod_choicegroup_delete_choicegroup_responses**
+  - Version: 2024111301
+- **mod_choicegroup_get_choicegroup_options**
+  - Version: 2024111301
+- **mod_choicegroup_submit_choicegroup_response**
+  - Version: 2024111301
+- **mod_choicegroup_view_choicegroup**
+  - Version: 2024111301
+- **mod_customcert_delete_issue**
+  - Version: 2024042207
+- **mod_data_add_entry**
+  - Version: 2024100700
+- **mod_data_approve_entry**
+  - Version: 2024100700
+- **mod_data_delete_entry**
+  - Version: 2024100700
+- **mod_data_get_data_access_information**
+  - Version: 2024100700
+- **mod_data_get_databases_by_courses**
+  - Version: 2024100700
+- **mod_data_get_entries**
+  - Version: 2024100700
+- **mod_data_get_entry**
+  - Version: 2024100700
+- **mod_data_get_fields**
+  - Version: 2024100700
+- **mod_data_search_entries**
+  - Version: 2024100700
+- **mod_data_update_entry**
+  - Version: 2024100700
+- **mod_data_view_database**
+  - Version: 2024100700
+- **mod_feedback_get_analysis**
+  - Version: 2024100700
+- **mod_feedback_get_current_completed_tmp**
+  - Version: 2024100700
+- **mod_feedback_get_feedback_access_information**
+  - Version: 2024100700
+- **mod_feedback_get_feedbacks_by_courses**
+  - Version: 2024100700
+- **mod_feedback_get_finished_responses**
+  - Version: 2024100700
+- **mod_feedback_get_items**
+  - Version: 2024100700
+- **mod_feedback_get_last_completed**
+  - Version: 2024100700
+- **mod_feedback_get_non_respondents**
+  - Version: 2024100700
+- **mod_feedback_get_page_items**
+  - Version: 2024100700
+- **mod_feedback_get_responses_analysis**
+  - Version: 2024100700
+- **mod_feedback_get_unfinished_responses**
+  - Version: 2024100700
+- **mod_feedback_launch_feedback**
+  - Version: 2024100700
+- **mod_feedback_process_page**
+  - Version: 2024100700
+- **mod_feedback_view_feedback**
+  - Version: 2024100700
+- **mod_folder_get_folders_by_courses**
+  - Version: 2024100700
+- **mod_folder_view_folder**
+  - Version: 2024100700
+- **mod_forum_add_discussion**
+  - Version: 2024100700
+- **mod_forum_add_discussion_post**
+  - Version: 2024100700
+- **mod_forum_can_add_discussion**
+  - Version: 2024100700
+- **mod_forum_delete_post**
+  - Version: 2024100700
+- **mod_forum_get_discussion_post**
+  - Version: 2024100700
+- **mod_forum_get_discussion_posts**
+  - Version: 2024100700
+- **mod_forum_get_forum_access_information**
+  - Version: 2024100700
+- **mod_forum_get_forum_discussions**
+  - Version: 2024100700
+- **mod_forum_get_forums_by_courses**
+  - Version: 2024100700
+- **mod_forum_prepare_draft_area_for_post**
+  - Version: 2024100700
+- **mod_forum_set_lock_state**
+  - Version: 2024100700
+- **mod_forum_set_pin_state**
+  - Version: 2024100700
+- **mod_forum_set_subscription_state**
+  - Version: 2024100700
+- **mod_forum_toggle_favourite_state**
+  - Version: 2024100700
+- **mod_forum_update_discussion_post**
+  - Version: 2024100700
+- **mod_forum_view_forum**
+  - Version: 2024100700
+- **mod_forum_view_forum_discussion**
+  - Version: 2024100700
+- **mod_glossary_add_entry**
+  - Version: 2024100700
+- **mod_glossary_delete_entry**
+  - Version: 2024100700
+- **mod_glossary_get_authors**
+  - Version: 2024100700
+- **mod_glossary_get_categories**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_author**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_author_id**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_category**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_date**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_letter**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_search**
+  - Version: 2024100700
+- **mod_glossary_get_entries_by_term**
+  - Version: 2024100700
+- **mod_glossary_get_entries_to_approve**
+  - Version: 2024100700
+- **mod_glossary_get_entry_by_id**
+  - Version: 2024100700
+- **mod_glossary_get_glossaries_by_courses**
+  - Version: 2024100700
+- **mod_glossary_prepare_entry_for_edition**
+  - Version: 2024100700
+- **mod_glossary_update_entry**
+  - Version: 2024100700
+- **mod_glossary_view_entry**
+  - Version: 2024100700
+- **mod_glossary_view_glossary**
+  - Version: 2024100700
+- **mod_h5pactivity_get_attempts**
+  - Version: 2024100700
+- **mod_h5pactivity_get_h5pactivities_by_courses**
+  - Version: 2024100700
+- **mod_h5pactivity_get_h5pactivity_access_information**
+  - Version: 2024100700
+- **mod_h5pactivity_get_results**
+  - Version: 2024100700
+- **mod_h5pactivity_get_user_attempts**
+  - Version: 2024100700
+- **mod_h5pactivity_log_report_viewed**
+  - Version: 2024100700
+- **mod_h5pactivity_view_h5pactivity**
+  - Version: 2024100700
+- **mod_imscp_get_imscps_by_courses**
+  - Version: 2024100700
+- **mod_imscp_view_imscp**
+  - Version: 2024100700
+- **mod_label_get_labels_by_courses**
+  - Version: 2024100700
+- **mod_lesson_finish_attempt**
+  - Version: 2024100700
+- **mod_lesson_get_attempts_overview**
+  - Version: 2024100700
+- **mod_lesson_get_content_pages_viewed**
+  - Version: 2024100700
+- **mod_lesson_get_lesson**
+  - Version: 2024100700
+- **mod_lesson_get_lesson_access_information**
+  - Version: 2024100700
+- **mod_lesson_get_lessons_by_courses**
+  - Version: 2024100700
+- **mod_lesson_get_page_data**
+  - Version: 2024100700
+- **mod_lesson_get_pages**
+  - Version: 2024100700
+- **mod_lesson_get_pages_possible_jumps**
+  - Version: 2024100700
+- **mod_lesson_get_questions_attempts**
+  - Version: 2024100700
+- **mod_lesson_get_user_attempt**
+  - Version: 2024100700
+- **mod_lesson_get_user_attempt_grade**
+  - Version: 2024100700
+- **mod_lesson_get_user_grade**
+  - Version: 2024100700
+- **mod_lesson_get_user_timers**
+  - Version: 2024100700
+- **mod_lesson_launch_attempt**
+  - Version: 2024100700
+- **mod_lesson_process_page**
+  - Version: 2024100700
+- **mod_lesson_view_lesson**
+  - Version: 2024100700
+- **mod_lti_get_ltis_by_courses**
+  - Version: 2024100700
+- **mod_lti_get_tool_launch_data**
+  - Version: 2024100700
+- **mod_lti_view_lti**
+  - Version: 2024100700
+- **mod_page_get_pages_by_courses**
+  - Version: 2024100700
+- **mod_page_view_page**
+  - Version: 2024100700
+- **mod_questionnaire_submit_questionnaire_response**
+  - Version: 2022092202
+- **mod_quiz_get_attempt_access_information**
+  - Version: 2024100700
+- **mod_quiz_get_attempt_data**
+  - Version: 2024100700
+- **mod_quiz_get_attempt_review**
+  - Version: 2024100700
+- **mod_quiz_get_attempt_summary**
+  - Version: 2024100700
+- **mod_quiz_get_combined_review_options**
+  - Version: 2024100700
+- **mod_quiz_get_quiz_access_information**
+  - Version: 2024100700
+- **mod_quiz_get_quiz_feedback_for_grade**
+  - Version: 2024100700
+- **mod_quiz_get_quiz_required_qtypes**
+  - Version: 2024100700
+- **mod_quiz_get_quizzes_by_courses**
+  - Version: 2024100700
+- **mod_quiz_get_user_attempts**
+  - Version: 2024100700
+- **mod_quiz_get_user_best_grade**
+  - Version: 2024100700
+- **mod_quiz_process_attempt**
+  - Version: 2024100700
+- **mod_quiz_save_attempt**
+  - Version: 2024100700
+- **mod_quiz_start_attempt**
+  - Version: 2024100700
+- **mod_quiz_view_attempt**
+  - Version: 2024100700
+- **mod_quiz_view_attempt_review**
+  - Version: 2024100700
+- **mod_quiz_view_attempt_summary**
+  - Version: 2024100700
+- **mod_quiz_view_quiz**
+  - Version: 2024100700
+- **mod_resource_get_resources_by_courses**
+  - Version: 2024100700
+- **mod_resource_view_resource**
+  - Version: 2024100700
+- **mod_scorm_get_scorm_access_information**
+  - Version: 2024100700
+- **mod_scorm_get_scorm_attempt_count**
+  - Version: 2024100700
+- **mod_scorm_get_scorm_sco_tracks**
+  - Version: 2024100700
+- **mod_scorm_get_scorm_scoes**
+  - Version: 2024100700
+- **mod_scorm_get_scorm_user_data**
+  - Version: 2024100700
+- **mod_scorm_get_scorms_by_courses**
+  - Version: 2024100700
+- **mod_scorm_insert_scorm_tracks**
+  - Version: 2024100700
+- **mod_scorm_launch_sco**
+  - Version: 2024100700
+- **mod_scorm_view_scorm**
+  - Version: 2024100700
+- **mod_subcourse_view_subcourse**
+  - Version: 2024072400
+- **mod_survey_get_questions**
+  - Version: 2024100700
+- **mod_survey_get_surveys_by_courses**
+  - Version: 2024100700
+- **mod_survey_submit_answers**
+  - Version: 2024100700
+- **mod_survey_view_survey**
+  - Version: 2024100700
+- **mod_url_get_urls_by_courses**
+  - Version: 2024100700
+- **mod_url_view_url**
+  - Version: 2024100700
+- **mod_videotime_get_videotime**
+  - Version: 2024050705
+- **mod_videotime_view_videotime**
+  - Version: 2024050705
+- **mod_wiki_edit_page**
+  - Version: 2024100700
+- **mod_wiki_get_page_contents**
+  - Version: 2024100700
+- **mod_wiki_get_page_for_editing**
+  - Version: 2024100700
+- **mod_wiki_get_subwiki_files**
+  - Version: 2024100700
+- **mod_wiki_get_subwiki_pages**
+  - Version: 2024100700
+- **mod_wiki_get_subwikis**
+  - Version: 2024100700
+- **mod_wiki_get_wikis_by_courses**
+  - Version: 2024100700
+- **mod_wiki_new_page**
+  - Version: 2024100700
+- **mod_wiki_view_page**
+  - Version: 2024100700
+- **mod_wiki_view_wiki**
+  - Version: 2024100700
+- **mod_workshop_add_submission**
+  - Version: 2024100700
+- **mod_workshop_delete_submission**
+  - Version: 2024100700
+- **mod_workshop_evaluate_assessment**
+  - Version: 2024100700
+- **mod_workshop_evaluate_submission**
+  - Version: 2024100700
+- **mod_workshop_get_assessment**
+  - Version: 2024100700
+- **mod_workshop_get_assessment_form_definition**
+  - Version: 2024100700
+- **mod_workshop_get_grades**
+  - Version: 2024100700
+- **mod_workshop_get_grades_report**
+  - Version: 2024100700
+- **mod_workshop_get_reviewer_assessments**
+  - Version: 2024100700
+- **mod_workshop_get_submission**
+  - Version: 2024100700
+- **mod_workshop_get_submission_assessments**
+  - Version: 2024100700
+- **mod_workshop_get_submissions**
+  - Version: 2024100700
+- **mod_workshop_get_user_plan**
+  - Version: 2024100700
+- **mod_workshop_get_workshop_access_information**
+  - Version: 2024100700
+- **mod_workshop_get_workshops_by_courses**
+  - Version: 2024100700
+- **mod_workshop_update_assessment**
+  - Version: 2024100700
+- **mod_workshop_update_submission**
+  - Version: 2024100700
+- **mod_workshop_view_submission**
+  - Version: 2024100700
+- **mod_workshop_view_workshop**
+  - Version: 2024100700
+
+### qtype (1 functions)
+
+- **qtype_coderunner_run_in_sandbox**
+  - Version: 2023090800
+
+### report (3 functions)
+
+- **report_insights_action_executed**
+  - Version: 2024100700
+- **report_insights_set_fixed_prediction**
+  - Version: 2024100700
+- **report_insights_set_notuseful_prediction**
+  - Version: 2024100700
+
+### tool (26 functions)
+
+- **tool_analytics_potential_contexts**
+  - Version: 2024100700
+- **tool_dataprivacy_cancel_data_request**
+  - Version: 2024100700
+- **tool_dataprivacy_contact_dpo**
+  - Version: 2024100700
+- **tool_dataprivacy_create_data_request**
+  - Version: 2024100700
+- **tool_dataprivacy_get_access_information**
+  - Version: 2024100700
+- **tool_dataprivacy_get_data_requests**
+  - Version: 2024100700
+- **tool_lp_data_for_course_competencies_page**
+  - Version: 2024100700
+- **tool_lp_data_for_plan_page**
+  - Version: 2024100700
+- **tool_lp_data_for_plans_page**
+  - Version: 2024100700
+- **tool_lp_data_for_user_competency_summary**
+  - Version: 2024100700
+- **tool_lp_data_for_user_competency_summary_in_course**
+  - Version: 2024100700
+- **tool_lp_data_for_user_competency_summary_in_plan**
+  - Version: 2024100700
+- **tool_lp_data_for_user_evidence_list_page**
+  - Version: 2024100700
+- **tool_lp_data_for_user_evidence_page**
+  - Version: 2024100700
+- **tool_mobile_call_external_functions**
+  - Version: 2024100700
+- **tool_mobile_get_autologin_key**
+  - Version: 2024100700
+- **tool_mobile_get_config**
+  - Version: 2024100700
+- **tool_mobile_get_content**
+  - Version: 2024100700
+- **tool_mobile_get_plugins_supporting_mobile**
+  - Version: 2024100700
+- **tool_mobile_get_public_config**
+  - Version: 2024100700
+- **tool_mobile_get_tokens_for_qr_login**
+  - Version: 2024100700
+- **tool_mobile_validate_subscription_key**
+  - Version: 2024100700
+- **tool_moodlenet_search_courses**
+  - Version: 2024100700
+- **tool_moodlenet_verify_webfinger**
+  - Version: 2024100700
+- **tool_policy_get_user_acceptances**
+  - Version: 2024100700
+- **tool_policy_set_acceptances_status**
+  - Version: 2024100700
+
+### videotimeplugin (15 functions)
+
+- **videotimeplugin_live_get_feed**
+  - Version: 2023101102
+- **videotimeplugin_live_get_room**
+  - Version: 2023101102
+- **videotimeplugin_live_join_room**
+  - Version: 2023101102
+- **videotimeplugin_live_publish_feed**
+  - Version: 2023101102
+- **videotimeplugin_live_renew_token**
+  - Version: 2023101102
+- **videotimeplugin_pro_get_new_session**
+  - Version: 2024050705
+- **videotimeplugin_pro_get_next_activity_button_data**
+  - Version: 2024050705
+- **videotimeplugin_pro_get_resume_time**
+  - Version: 2024050705
+- **videotimeplugin_pro_get_watch_percent**
+  - Version: 2024050705
+- **videotimeplugin_pro_record_watch_time**
+  - Version: 2024050705
+- **videotimeplugin_pro_set_percent**
+  - Version: 2024050705
+- **videotimeplugin_pro_set_session_current_time**
+  - Version: 2024050705
+- **videotimeplugin_pro_set_session_state**
+  - Version: 2024050705
+- **videotimeplugin_pro_update_watch_time**
+  - Version: 2024050705
+- **videotimeplugin_pro_watch_info**
+  - Version: 2024050705
+
+
+## Key Categories for LMS Dashboard
+
